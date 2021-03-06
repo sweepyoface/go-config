@@ -2,6 +2,7 @@ package flag
 
 import (
 	"os"
+	"strings"
 
 	"github.com/pcelvng/go-config/util/node"
 )
@@ -32,10 +33,17 @@ func (l *Loader) Load(_ []byte, nGrps []*node.Nodes) error {
 		return err
 	}
 
+	// ignore test flags
+	var argList []string
+	for _, arg := range os.Args[1:] {
+		if !strings.HasPrefix(arg, "test.") {
+			argList = append(argList, arg)
+		}
+	}
+
 	// -help and -h are already reserved. The following
 	// provides more support for "help" and "h"
 	// without the dash "-" prefix.
-	argList := os.Args[1:]
 	if len(argList) > 0 && (argList[0] == "help" || argList[0] == "h") {
 		fs.fs.Usage()
 		os.Exit(0)
