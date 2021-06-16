@@ -2,9 +2,14 @@ package flag
 
 import (
 	"os"
-
+	"testing"
 	"github.com/pcelvng/go-config/util/node"
 )
+
+var _ = func() bool {
+	testing.Init()
+	return true
+}()
 
 type Options struct {
 	// HelpPreamble is optional text prepended to the help screen menu.
@@ -27,6 +32,7 @@ type Loader struct {
 }
 
 func (l *Loader) Load(_ []byte, nGrps []*node.Nodes) error {
+	testing.Init()
 	fs, err := newFlagSet(l.o, nGrps)
 	if err != nil {
 		return err
