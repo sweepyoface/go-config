@@ -1,4 +1,4 @@
-module github.com/pcelvng/go-config
+module github.com/sweepyoface/go-config
 
 go 1.15
 
